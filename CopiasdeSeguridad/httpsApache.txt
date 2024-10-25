@@ -1,0 +1,42 @@
+Https en apache: 
+
+//Certificado 
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/mi_clave_privada.key -out /etc/ssl/certs/mi_certificado_autofirmado.crt  
+
+//Habilitar ssl 
+sudo a2enmod ssl 
+
+//deshabilitar configuracion predeterminada 
+Sudo a2dissite 00-config 
+
+//configurar config 
+sudo nano /etc/apache2/sites-available/mi_sitio.conf 
+
+<VirtualHost *:80> 
+    ServerName tu_dominio 
+    Redirect permanent / https://tu_dominio/ 
+</VirtualHost> 
+
+<VirtualHost *:443> 
+
+    ServerName tu_dominio 
+    DocumentRoot /var/www/html 
+  
+    SSLEngine on 
+
+    SSLCertificateFile /etc/ssl/certs/mi_certificado_autofirmado.crt 
+    SSLCertificateKeyFile /etc/ssl/private/mi_clave_privada.key 
+  
+
+    <Directory /var/www/html> 
+        AllowOverride All 
+    </Directory> 
+</VirtualHost> 
+
+
+//Habilitar sitio 
+sudo a2ensite mi_sitio.conf  
+
+
+//reiniciar 
+sudo systemctl restart apache2 
