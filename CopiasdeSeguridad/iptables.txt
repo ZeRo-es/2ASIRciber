@@ -1,0 +1,9 @@
+Iptables –t NAT/FILTER/MANGLE/RAW -A INPUT/OUTPUT/FORWARD –s (source) -d (destino) -j ACCEPT/DROP 
+
+
+--INPUT--
+
+iptables -t filter -A INPUT -p tcp --dport 22,80,443 -j ACCEPT // aceptará todos los mensajes entrantes del puerto 22,80,443 tcp
+iptables -t filter -A INPUT -j DROP // todo lo va a dropear
+
+--OUTPUT--
