@@ -1,8 +1,12 @@
 #comandos iptables
 
 #Listar
-iptables -S cat de comandos
-iptables -L listado
+iptables -S #cat de comandos
+iptables -L --line-numbers #listado con numeros 
+-t filter -N reglas_ssh #para crear cadena
+
+#asd
+
 
 contrack = --ctstate = ## para instalar ## = -A INPUT -m conntrack --ctstate NEW
 
